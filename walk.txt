@@ -1,0 +1,45 @@
+### OBTENÇÃO DE VALORES RANDOMIZADOS -- CHAINLINK VRF ###
+
+Para conseguirmos trabalhar com numeros randomizados na blockchain, a qual é um sistema determinístico por
+definição e,portanto, é incapaz de gerar variáveis aleatórias, precisamos obter um valor randômico de fora
+da blockchain, mas de maneira descentralizada- uma simples api não é suficiente para realizar essa diferença.
+
+Eis o papel da chainlink VRF.
+
+
+### IMPORT DO SMART CONTRACT ASSOCIADO A VRF GET A RANDOM NUMBER V1 ###
+
+Não vamos usar a versão 2 do protocolo chainlink para random number, por ora.
+https://docs.chain.link/vrf/v1/examples/get-a-random-number/
+
+### HEREDITARIEDADE DE CONSTRUCTORS ###
+
+Quando herdamos em nosso contrato A um outro contrato B, os construtores de nosso contrato A podem também herdar simul-
+taneamente os construtores do outro contrato B.
+
+Exemplo: Contrato B 
+
+constructor( int x) public {
+    v = x;
+}
+
+Se nosso contrato A herda B, então o construtor em A pode ser escrito como:
+
+constructor( address y, int x) public B(x) {
+    a = y;
+}
+
+Dessa forma, simultaneamente, realizamos toda a rotina designada por ambos os construtores, ou seja: nosso contrato A 
+fará v=x e a=y.
+
+### Request and Receive Architecture ###
+
+Quando vc chama um contrato que se comunica de forma direta com um VRFCoordinator e pede um dado randômico, 
+você requisita um número randomico em uma transação e, na transação seguinte (feita automaticamente pelo proprio contrato)
+associado ao VRFCoordinator, você recebe. Mas tais transações são funções diferentes:
+- A função RequestRandomness é chamada por usuário.
+- A função FulfillRandomness é chamada pelo VRFChainlink, automaticamente. (internal)
+
+Obs: override --> pega a função declarada previamente (como por herança) e vc override a declaração, ou seja, a re-escreve.
+
+#

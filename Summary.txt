@@ -1,0 +1,21 @@
+>>>> Walkthrough for the development of this project <<<<
+
+## Concept: Smart Contract Lottery, where an admin will start and end the lottery.
+4 basic functions on chain:
+- start lottery (admin)
+- end lottery (admin)
+- enter lottery (anyone)
+- randomwinner (get a random winner)
+
+## State of the lottery dictates its progression
+
+ enum LOTTERY_STATE public {OPEN, CLOSED, CALCULATING_WINNER} -> simple enum to coordinate it better
+ 
+## Imports
+- AggregatorV3Interface --> We do so we may interact with pricefeed contracts.
+- Openzeppelin          --> So we can inherit the modifier onlyOwner
+- VRFConsumerBase       --> So we're able to interact with VRFCoordinator of chainlink and get random numbers.
+
+
+## New method of calling function/account: load!
+accounts.load('id') --> Loads an account based on the passage of an id from your bronwie list
